@@ -35,7 +35,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -59,6 +59,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fit.vwm.servlet.basedOnComputer" />
       <recent name="fit.vwm.servlet" />
       <recent name="fit.vwm.data" />
     </key>
@@ -160,6 +161,7 @@
       <option name="presentableId" value="Default" />
       <updated>1585948363331</updated>
       <workItem from="1585948367798" duration="16116000" />
+      <workItem from="1586031641947" duration="3049000" />
     </task>
     <servers />
   </component>
@@ -171,22 +173,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fit/vwm/servlet/generic/StatusServlet.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="rs.getInt(1" language="JAVA" />

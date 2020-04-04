@@ -11,11 +11,11 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
-public abstract class MasterServlet extends HttpServlet {
+public abstract class MasterGenericServlet extends HttpServlet {
     protected Connection con;
     protected String tableName = "";
 
-    public MasterServlet(String tableName){
+    public MasterGenericServlet(String tableName){
         this.tableName = tableName;
     }
 
