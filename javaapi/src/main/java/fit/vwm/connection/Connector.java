@@ -14,7 +14,7 @@ public class Connector {
             if (con == null || con.isClosed()){
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection(
-                        "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7331010","sql7331010","KfAjbq8zst");
+                        "jdbc:mysql://localhost:3306/market","root","hesloheslo");
         }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
-package fit.vwm.servlet.basedOnComputer;
+package fit.vwm.servlet.oldServlet.basedOnComputer;
 
-import fit.vwm.servlet.master.MasterSpecialComputerServlet;
+import fit.vwm.servlet.oldServlet.master.MasterSpecialComputerServlet;
 
 import javax.servlet.annotation.WebServlet;
 

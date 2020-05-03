@@ -1,4 +1,4 @@
-package fit.vwm.data;
+package fit.vwm.data.oldData;
 
 //master trida objektu z DB
 public class GenericData {

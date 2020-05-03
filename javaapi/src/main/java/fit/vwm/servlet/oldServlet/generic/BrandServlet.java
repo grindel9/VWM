@@ -1,6 +1,6 @@
-package fit.vwm.servlet.generic;
+package fit.vwm.servlet.oldServlet.generic;
 
-import fit.vwm.servlet.master.MasterGenericServlet;
+import fit.vwm.servlet.oldServlet.master.MasterGenericServlet;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(name = "BrandServlet",

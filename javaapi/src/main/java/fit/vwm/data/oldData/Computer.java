@@ -1,4 +1,4 @@
-package fit.vwm.data;
+package fit.vwm.data.oldData;
 
 public class Computer extends GenericData{
 

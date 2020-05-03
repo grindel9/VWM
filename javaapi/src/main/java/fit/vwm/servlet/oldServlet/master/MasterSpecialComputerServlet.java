@@ -1,11 +1,11 @@
-package fit.vwm.servlet.unquie;
+package fit.vwm.servlet.oldServlet.master;
+
 
 import com.google.gson.Gson;
 import fit.vwm.connection.Connector;
-import fit.vwm.data.Computer;
-import fit.vwm.servlet.master.MasterGenericServlet;
+import fit.vwm.data.oldData.Computer;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,18 +15,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "ComputerServlet",
-        urlPatterns = "/computer/*")
+public abstract class MasterSpecialComputerServlet extends MasterGenericServlet {
+    String typeId;
 
-public class ComputerServlet extends MasterGenericServlet {
-
-    public ComputerServlet() {
-        super("Computer");
+    public MasterSpecialComputerServlet(String tableName, String requestor) {
+        super(tableName);
+//        je to prasacky reseni, ale sestavuje to pak za me spravne ten dotaz
+        switch (requestor){
+            case "Laptop":
+                typeId = "1";
+                break;
+            case "Desktop":
+                typeId = "2";
+                break;
+            case "Netbook":
+                typeId = "3";
+                break;
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //        spojeni
+//        spojeni
         con = Connector.getConnection();
 
 //      output - defaultne prazdny
@@ -34,10 +44,10 @@ public class ComputerServlet extends MasterGenericServlet {
         ArrayList<Computer> dataCollection = new ArrayList<>();
         try {
 //            dotaz
-            String sql = "select * from " + tableName;
-
+            String sql = "select * from " + tableName + " where Type = ?";
 //            provedeni dotazu
             PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, typeId);
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
             while (rs.next())
@@ -75,9 +85,10 @@ public class ComputerServlet extends MasterGenericServlet {
         String id = request.getPathInfo().replace("/", "");
         try {
 //            dotaz
-            String sql = "select * from " + tableName + " where " + tableName + "Id = ?";
+            String sql = "select * from " + tableName + " where " + tableName + "Id = ? AND Type = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, id);
+            stmt.setString(2, typeId);
 //            provedeni dotazu
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
@@ -105,5 +116,3 @@ public class ComputerServlet extends MasterGenericServlet {
         out.flush();
     }
 }
-
-

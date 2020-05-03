@@ -1,59 +1,41 @@
-package fit.vwm.servlet.master;
-
-
+package fit.vwm.servlet.oldServlet.master;
 import com.google.gson.Gson;
 import fit.vwm.connection.Connector;
-import fit.vwm.data.Computer;
-
+import fit.vwm.data.oldData.GenericData;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-public abstract class MasterSpecialComputerServlet extends MasterGenericServlet {
-    String typeId;
+public abstract class MasterGenericServlet extends HttpServlet {
+    protected Connection con;
+    protected String tableName = "";
 
-    public MasterSpecialComputerServlet(String tableName, String requestor) {
-        super(tableName);
-//        je to prasacky reseni, ale sestavuje to pak za me spravne ten dotaz
-        switch (requestor){
-            case "Laptop":
-                typeId = "1";
-                break;
-            case "Desktop":
-                typeId = "2";
-                break;
-            case "Netbook":
-                typeId = "3";
-                break;
-        }
+    public MasterGenericServlet(String tableName){
+        this.tableName = tableName;
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 //        spojeni
         con = Connector.getConnection();
 
 //      output - defaultne prazdny
         String jsonString = "";
-        ArrayList<Computer> dataCollection = new ArrayList<>();
+        ArrayList<GenericData> dataCollection = new ArrayList<>();
         try {
 //            dotaz
-            String sql = "select * from " + tableName + " where Type = ?";
-//            provedeni dotazu
+            String sql = "select * from "+tableName;
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, typeId);
+//            provedeni dotazu
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
             while (rs.next())
-                dataCollection.add(new Computer(rs.getInt(1), rs.getString(4), rs.getInt(2),
-                        rs.getInt(3), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                        rs.getInt(8)));
+                dataCollection.add(new GenericData(rs.getInt(1), rs.getString(2)));
 
 //            zavreni pripojeni
             Connector.closeConnection();
@@ -74,9 +56,10 @@ public abstract class MasterSpecialComputerServlet extends MasterGenericServlet 
         out.flush();
     }
 
+//    getById, jednoduse je to POST protoze me zajima ze neco ctu na vstupu z requestu
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //        spojeni
+//        spojeni
         con = Connector.getConnection();
 
 //      output - defaultne prazdny
@@ -85,17 +68,14 @@ public abstract class MasterSpecialComputerServlet extends MasterGenericServlet 
         String id = request.getPathInfo().replace("/", "");
         try {
 //            dotaz
-            String sql = "select * from " + tableName + " where " + tableName + "Id = ? AND Type = ?";
+            String sql = "select * from "+tableName+" where "+tableName+"Id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, id);
-            stmt.setString(2, typeId);
 //            provedeni dotazu
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
             rs.next();
-            Computer c = new Computer(rs.getInt(1), rs.getString(4), rs.getInt(2),
-                    rs.getInt(3), rs.getInt(5), rs.getInt(6), rs.getInt(7),
-                    rs.getInt(8));
+            GenericData c = new GenericData(rs.getInt(1), rs.getString(2));
 
 //            zavreni pripojeni
             Connector.closeConnection();
@@ -116,3 +96,4 @@ public abstract class MasterSpecialComputerServlet extends MasterGenericServlet 
         out.flush();
     }
 }
+

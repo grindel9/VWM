@@ -1,41 +1,49 @@
-package fit.vwm.servlet.master;
+package fit.vwm.servlet.oldServlet.unquie;
+
 import com.google.gson.Gson;
 import fit.vwm.connection.Connector;
-import fit.vwm.data.GenericData;
+import fit.vwm.data.oldData.Computer;
+import fit.vwm.servlet.oldServlet.master.MasterGenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public abstract class MasterGenericServlet extends HttpServlet {
-    protected Connection con;
-    protected String tableName = "";
+@WebServlet(name = "ComputerServlet",
+        urlPatterns = "/computer/*")
 
-    public MasterGenericServlet(String tableName){
-        this.tableName = tableName;
+public class ComputerServlet extends MasterGenericServlet {
+
+    public ComputerServlet() {
+        super("Computer");
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-//        spojeni
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //        spojeni
         con = Connector.getConnection();
 
 //      output - defaultne prazdny
         String jsonString = "";
-        ArrayList<GenericData> dataCollection = new ArrayList<>();
+        ArrayList<Computer> dataCollection = new ArrayList<>();
         try {
 //            dotaz
-            String sql = "select * from "+tableName;
-            PreparedStatement stmt = con.prepareStatement(sql);
+            String sql = "select * from " + tableName;
+
 //            provedeni dotazu
+            PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
             while (rs.next())
-                dataCollection.add(new GenericData(rs.getInt(1), rs.getString(2)));
+                dataCollection.add(new Computer(rs.getInt(1), rs.getString(4), rs.getInt(2),
+                        rs.getInt(3), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                        rs.getInt(8)));
 
 //            zavreni pripojeni
             Connector.closeConnection();
@@ -56,10 +64,9 @@ public abstract class MasterGenericServlet extends HttpServlet {
         out.flush();
     }
 
-//    getById, jednoduse je to POST protoze me zajima ze neco ctu na vstupu z requestu
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        spojeni
+        //        spojeni
         con = Connector.getConnection();
 
 //      output - defaultne prazdny
@@ -68,14 +75,16 @@ public abstract class MasterGenericServlet extends HttpServlet {
         String id = request.getPathInfo().replace("/", "");
         try {
 //            dotaz
-            String sql = "select * from "+tableName+" where "+tableName+"Id = ?";
+            String sql = "select * from " + tableName + " where " + tableName + "Id = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, id);
 //            provedeni dotazu
             ResultSet rs = stmt.executeQuery();
 //            ulozeni vysledku
             rs.next();
-            GenericData c = new GenericData(rs.getInt(1), rs.getString(2));
+            Computer c = new Computer(rs.getInt(1), rs.getString(4), rs.getInt(2),
+                    rs.getInt(3), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+                    rs.getInt(8));
 
 //            zavreni pripojeni
             Connector.closeConnection();
@@ -96,4 +105,5 @@ public abstract class MasterGenericServlet extends HttpServlet {
         out.flush();
     }
 }
+
 
