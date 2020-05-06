@@ -53,24 +53,6 @@
     opacity: 0.8;
   }
   
-  /* Input */
-  
-  input {
-    font-size: 14px;
-    border-radius: 2px;
-    padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #BDBDBD;
-  }
-  
-  label {
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 4px;
-    display: row;
-    text-transform: uppercase;
-  }
-  
   /* Button */
   .button, button {
     display: inline-flex;
@@ -101,6 +83,13 @@
     color: #1976d2;
   }
     
+  /*mezera*/
+  .divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+  }
+
   /* Top Bar */
   
   app-top-bar {
@@ -118,6 +107,7 @@
     color: white;
     margin: 0;
   }
+  
 
   
   

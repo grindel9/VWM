@@ -57,7 +57,10 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
 import { DropDownBrandFilterComponent } from './filters/drop-down-brand-filter/drop-down-brand-filter.component';
-import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
+import { DropDownListModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { FilterableListComponent } from './filterable-list/filterable-list.component';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { InputsModule } from '@progress/kendo-angular-inputs';
 
 
 @NgModule({
@@ -68,6 +71,7 @@ import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
     EmptyPageComponent,
     ProductDetailComponent,
     DropDownBrandFilterComponent,
+    FilterableListComponent,
   ],
   imports: [
     A11yModule,
@@ -123,6 +127,7 @@ import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'store', component: ProductsListComponent },
+      { path: 'filter', component: FilterableListComponent },
       { path: 'empty', component: EmptyPageComponent },
       { path: '.', component: EmptyPageComponent },
       { path: 'detail/:id', component: ProductDetailComponent },
@@ -131,7 +136,10 @@ import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
     GridModule,
     DropDownListModule,
     PDFModule,
-    ExcelModule
+    ExcelModule,
+    LayoutModule,
+    InputsModule,
+    DropDownsModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

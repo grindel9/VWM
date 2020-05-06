@@ -1,0 +1,147 @@
+<kendo-panelbar>
+    <kendo-panelbar-item [title]="'Filter'" [expanded]="true">
+<ng-template kendoPanelBarContent>
+
+<br />
+
+<div>
+    <h3>Id</h3>
+    <label>min: 
+    <kendo-numerictextbox
+        [(ngModel)]="item.idMin"> 
+      </kendo-numerictextbox>
+    </label>
+    <label>max: 
+      <kendo-numerictextbox
+       [(ngModel)]="item.idMax"> 
+        </kendo-numerictextbox>
+    </label>
+</div>
+
+<div >
+    <h3>Brand</h3>
+    <kendo-dropdownlist [data]="distinctBrand" textField="brand" valueField="brand" >
+    </kendo-dropdownlist>
+    <br />
+</div> 
+
+<div >
+    <h3>Made in</h3>
+    <kendo-multiselect  [data]="distinctMadeIn" textField="madeIn" valueField="madeIn" [(ngModel)]="item.madeIn">
+    </kendo-multiselect >
+    <br />
+</div>
+
+<div>
+  <h3>Model</h3>
+  <input kendoTextBox  [(ngModel)]="item.model" />
+</div>
+
+<div>
+<h3>Type</h3>
+<label>Laptop: 
+   <input type="radio" name="t" value="Laptop" [(ngModel)]="item.type" kendoRadioButton />
+  </label>
+  <label>Desktop: 
+    <input type="radio" name="t" value="Desktop" [(ngModel)]="item.type" kendoRadioButton />
+  </label>
+  <label>Notebook: 
+    <input type="radio" name="t" value="Notebook" [(ngModel)]="item.type" kendoRadioButton />
+  </label>
+</div>
+
+<div>
+  <h3>Price</h3>
+  <label>min: 
+  <kendo-numerictextbox
+  [(ngModel)]="item.priceMin"> 
+    </kendo-numerictextbox>
+  </label>
+  <label>max: 
+    <kendo-numerictextbox
+    [(ngModel)]="item.priceMax"> 
+      </kendo-numerictextbox>
+  </label>
+</div>
+
+<div>
+  <h3>Screen Size</h3>
+  <label>min: 
+  <kendo-numerictextbox
+  [(ngModel)]="item.screenSizeMin"> 
+    </kendo-numerictextbox>
+  </label>
+  <label>max: 
+    <kendo-numerictextbox
+    [(ngModel)]="item.screenSizeMax"> 
+      </kendo-numerictextbox>
+  </label>
+</div>
+
+
+<div>
+<h3>Status</h3>
+<label>New: 
+   <input type="radio" name="s" value="New" [(ngModel)]="item.status" kendoRadioButton />
+  </label>
+  <label>Refurbished: 
+    <input type="radio" name="s" value="Refurbished"  [(ngModel)]="item.status" kendoRadioButton />
+  </label>
+  <label>Used: 
+    <input type="radio" name="s" value="Used" [(ngModel)]="item.status" kendoRadioButton />
+  </label>
+  <label>Broken: 
+    <input type="radio" name="s" value="Broken"  [(ngModel)]="item.status" kendoRadioButton />
+  </label>
+</div>
+
+<br />
+<br />
+
+<button (click)="clearFilter()">Clear filter</button>
+<div class="divider"></div>
+<button (click)="filter()">Filter</button>
+
+<br />
+<br />
+
+</ng-template>
+</kendo-panelbar-item>
+
+
+<kendo-panelbar-item [title]="'Computers'" [expanded]="true">
+<ng-template kendoPanelBarContent>
+<kendo-grid [data]="gridData" 
+        [pageSize]="state.take"
+        [skip]="state.skip"
+        [sort]="state.sort"
+        [filter]="state.filter"
+        [sortable]="false"
+        [pageable]="true"
+        [filterable]="false"
+        (dataStateChange)="dataStateChange($event)"
+        >
+  <kendo-grid-column field="brand" title="Brand" >
+  </kendo-grid-column>
+  <kendo-grid-column field="model" title="Model">
+  </kendo-grid-column>
+  <kendo-grid-column field="madeIn" title="Country">
+  </kendo-grid-column>
+  <kendo-grid-column field="type" title="Type" >
+  </kendo-grid-column>
+  <kendo-grid-column field="screenSize" title="Screen Size" filter="numeric" >
+  </kendo-grid-column>
+  <kendo-grid-column field="price" title="Price" filter="numeric" >
+  </kendo-grid-column>
+  <kendo-grid-command-column title="" width="220">
+    <ng-template kendoGridCellTemplate let-dataItem>
+        <button routerLink="/detail/{{dataItem.id}}" >Detail</button>
+        <div class="divider"></div>
+        <button (click)="addToCart()">Add</button>
+    </ng-template>
+  </kendo-grid-command-column>
+
+</kendo-grid>
+</ng-template>
+</kendo-panelbar-item>
+</kendo-panelbar>
