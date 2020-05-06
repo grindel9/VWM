@@ -1,6 +1,52 @@
 <h1>Products:</h1>
+<kendo-grid [data]="gridData" 
+        [pageSize]="state.take"
+        [skip]="state.skip"
+        [sort]="state.sort"
+        [filter]="state.filter"
+        [sortable]="true"
+        [pageable]="true"
+        [filterable]="true"
+        (dataStateChange)="dataStateChange($event)"
+        >
+  <kendo-grid-column field="brand" title="Brand" >
+  </kendo-grid-column>
+  <kendo-grid-column field="model" title="Model">
+  </kendo-grid-column>
+  <kendo-grid-column field="madeIn" title="Country">
+    <ng-template kendoGridFilterCellTemplate let-filter>
+      <app-drop-down-brand-filter
+          [filter]="filter"
+          [data]="distinctMadeIn"
+          textField="madeIn"
+          valueField="madeIn">
+      </app-drop-down-brand-filter>
+  </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="type" title="Type" >
+    <ng-template kendoGridFilterCellTemplate let-filter>
+      <app-drop-down-brand-filter
+          [filter]="filter"
+          [data]="distinctType"
+          textField="type"
+          valueField="type">
+      </app-drop-down-brand-filter>
+  </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="screenSize" title="Screen Size" filter="numeric" >
+  </kendo-grid-column>
+  <kendo-grid-column field="price" title="Price" filter="numeric" >
+  </kendo-grid-column>
+  <kendo-grid-command-column title="" width="220">
+    <ng-template kendoGridCellTemplate let-dataItem>
+        <button routerLink="/detail/{{dataItem.id}}" >Detail</button>
+        <button (click)="addToCart()">Add</button>
+    </ng-template>
+  </kendo-grid-command-column>
 
-<mat-form-field >
+</kendo-grid>
+
+<!-- <mat-form-field >
   <mat-label>Select an option</mat-label>
   <mat-select [(value)]="selected">
     <mat-option>All</mat-option>
@@ -8,7 +54,7 @@
     <mat-option value="Netbook">Netbook</mat-option>
     <mat-option value="Laptop">Laptop</mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 
 <!-- <div class="app-products-list" *ngFor="let product of products" >
   <span>{{ product.name }}</span>
@@ -16,28 +62,28 @@
   <span style="position: absolute; left: 1010px"> {{ 1000 | currency }} </span>
   <button (click)="addToCart(product)">Buy</button>
 </div> -->
-<table mat-table [dataSource]="products" class="mat-elevation-z8">
+<!-- <table mat-table [dataSource]="products" class="mat-elevation-z8"> -->
 
   <!-- Name Column -->
-  <ng-container matColumnDef="brand">
+  <!-- <ng-container matColumnDef="brand">
     <th mat-header-cell *matHeaderCellDef> Brand </th>
     <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Model Column -->
-  <ng-container matColumnDef="model">
+  <!-- <ng-container matColumnDef="model">
     <th mat-header-cell *matHeaderCellDef> Model </th>
     <td mat-cell *matCellDef="let element"> {{element.model}} </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Country Column -->
-  <ng-container matColumnDef="price">
+  <!-- <ng-container matColumnDef="price">
     <th mat-header-cell *matHeaderCellDef> Price </th>
     <td mat-cell *matCellDef="let element"> {{element.price | currency }} </td>
-  </ng-container>
+  </ng-container> -->
 
   <!-- Detail Column -->
-  <ng-container>
+  <!-- <ng-container>
     <ng-container matColumnDef="detail" >
       <mat-header-cell  *matHeaderCellDef ></mat-header-cell>
       <mat-cell *matCellDef="let row" >
@@ -50,4 +96,4 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
-</table>
+</table> -->

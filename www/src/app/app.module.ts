@@ -55,6 +55,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
+import { DropDownBrandFilterComponent } from './filters/drop-down-brand-filter/drop-down-brand-filter.component';
+import { DropDownListModule } from '@progress/kendo-angular-dropdowns';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +67,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     TopBarComponent,
     EmptyPageComponent,
     ProductDetailComponent,
+    DropDownBrandFilterComponent,
   ],
   imports: [
     A11yModule,
@@ -116,13 +121,17 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
     RouterModule.forRoot([
       { path: 'store', component: ProductsListComponent },
       { path: 'empty', component: EmptyPageComponent },
       { path: '.', component: EmptyPageComponent },
       { path: 'detail/:id', component: ProductDetailComponent },
     ]),
+
+    GridModule,
+    DropDownListModule,
+    PDFModule,
+    ExcelModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
