@@ -20,7 +20,7 @@ public class WorkCycle {
      * Do one cycle of db sampling
      * @throws SQLException if request to db was unsuccessful
      */
-    synchronized public void doOneCycle() throws SQLException {
+    public void doOneCycle() throws SQLException {
         // check if we are to end
         if (this.walker.wasWantedSampleSizeSet()) {
             if (acquiredAmount() >= this.walker.wantedSampleSize) {
