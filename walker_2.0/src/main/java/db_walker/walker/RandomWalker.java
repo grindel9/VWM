@@ -343,8 +343,6 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
 
                 return this.getRandomSample(C, recursionDepth + 1);
             }
-
-            currentDepth += 1;
         }
 
         return new HashSet<>();
