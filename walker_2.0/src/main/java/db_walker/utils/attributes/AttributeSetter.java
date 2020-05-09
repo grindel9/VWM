@@ -1,4 +1,4 @@
-package db_walker.utils.attribute_orderers;
+package db_walker.utils.attributes;
 
 /**
  * Class that represents an attribute setter for the database.
@@ -8,10 +8,12 @@ public abstract class AttributeSetter implements Comparable<AttributeSetter> {
      * Primary constructor.
      * @param argument is the argument that will be sent to the db
      * @param priority is the priority of the argument, lower value == earlier execution
+     * @param branchingLevel is the level of branching at this level in tree
      */
-    public AttributeSetter(String argument, int priority) {
+    public AttributeSetter(String argument, int priority, int branchingLevel) {
         this.argument = argument;
         this.priority = priority;
+        this.branchingLevel = branchingLevel;
     }
 
     /**
@@ -24,7 +26,7 @@ public abstract class AttributeSetter implements Comparable<AttributeSetter> {
      * Getter for level of branching
      * @return value of branching at this level of attribute
      */
-    public final int levelOfBranching() { return this.priority; }
+    public final int levelOfBranching() { return this.branchingLevel; }
 
     /**
      * This method will set the attribute inside the databse.
@@ -45,4 +47,5 @@ public abstract class AttributeSetter implements Comparable<AttributeSetter> {
 
     protected final String argument;
     protected final int priority;
+    protected final int branchingLevel;
 }

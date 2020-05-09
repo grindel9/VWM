@@ -12,16 +12,18 @@ import java.util.TreeSet;
 public final class HiddenDatabaseApi extends DatabaseAccessor{
     /**
      * A constructor for the hidden db api.
+     * @param dbURL is the database url
+     * @param dbName is the  name of the database
+     * @param username is the username user to login
+     * @param password is the password for user to login
      * @param requestLimit is the request limit to be returned
      */
-    public HiddenDatabaseApi(int requestLimit) throws SQLException {
+    public HiddenDatabaseApi(String dbURL, String dbName, String username, String password, int requestLimit) throws SQLException {
         super(requestLimit);
         this.connection = null;
 
-        String driver = "jdbc:mysql://localhost:3306/market?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String username = "gorq";
-        String password = "hesloheslo";
-
+        String loginParams = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String driver = "jdbc:mysql://" + dbURL + '/' + dbName + loginParams;
         establishConnection(driver, username, password);
         // Load valid types
         loadAllValidFields();

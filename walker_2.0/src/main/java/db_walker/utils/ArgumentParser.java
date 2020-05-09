@@ -4,25 +4,54 @@ import java.util.*;
 
 public class ArgumentParser {
     public static void printUsage() {
-        System.out.println("Usage: java -jar app.jar " +
-                "[--timeout value(seconds)] " +
-                "[--request-limit value]" +
-                "[--wanted-sample value]" +
-                "Defaults: timeout: 10, request limit: 5, wanted sample: None" +
+        System.out.println(
+                "Usage: java -jar app.jar --db-url <url> --db-name <name> --username <username> --password <password>\n" +
+                "   [-h/--help]\n" +
+                "   [--timeout value(seconds)]\n" +
+                "   [--request-limit value]\n" +
+                "   [--wanted-sample value]\n" +
+                "   [--set-c value]\n" +
+                "   [--report-frequency value]\n" +
+                "   [--output file_name]\n" +
+                "   [--ordering fixed/random]\n" +
+                "------------------------\n" +
+                "Defaults: timeout: 30\n" +
+                "          request limit: 1\n" +
+                "          wanted sample: None\n" +
+                "          C: 3\n" +
+                "          report frequency: 1\n" +
+                "          output: None\n" +
+                "          ordering: fixed\n" +
                 "");
     }
 
     public static Map<String, String> parseArguments(List<String> args) {
-        List<String> validKeys = new ArrayList<>(Arrays.asList("--timeout", "--request-limit", "--wanted-sample"));
-
-        if (args.size()%2 != 0) {
-            printUsage();
-            return null;
-        }
+        List<String> validKeys = new ArrayList<>(Arrays.asList(
+                "--db-url",
+                "--db-name",
+                "--username",
+                "--password",
+                "--timeout",
+                "--request-limit",
+                "--wanted-sample",
+                "--set-c",
+                "--report-frequency",
+                "--output",
+                "--ordering")
+        );
 
         Map<String, String> returnValues = new HashMap<>();
         for (int i = 0; i < args.size(); i += 2) {
             String key = args.get(i);
+            if (key.equals("-h") || key.equals("--help")) {
+                printUsage();
+                return null;
+            }
+            if (i+1 == args.size()) {
+                System.out.println("Invalid option input.");
+                printUsage();
+                return null;
+            }
             String value = args.get(i+1);
             // invalid input
             if (!validKeys.contains(key)) {

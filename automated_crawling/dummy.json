@@ -1,0 +1,1 @@
+{"timeout":60,"request limit":50,"ordering":"fixed","average depth":11.000000,"average branching":4.000000,"walker":{"C":10.000000,"acquired amount":1000},"not accepted":0,"reporter":{"frequency":0.500000,"acquired times":[503,753,932,980]}}

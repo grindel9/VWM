@@ -1,5 +1,7 @@
 package db_walker.walker;
 
+import java.io.FileNotFoundException;
+
 /**
  * Interface for a random db_walker.walker approach to sampling a database
  */
@@ -25,6 +27,13 @@ public interface WalkingInterface {
      * @param amount is the sample size wanted
      */
     void setWantedSample(int amount);
+
+    /**
+     * Set the output file name.
+     * Is none by default.
+     * @param fileName is the name of the file to be created for output
+     */
+    void setOutput(String fileName);
 
     /**
      * Output result of the random walk
