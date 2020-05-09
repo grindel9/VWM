@@ -1,9 +1,11 @@
 package db_walker.utils;
 
+import java.io.PrintWriter;
+
 /**
  * Class representing a product
  */
-public class Product implements Comparable<Product> {
+public class Product implements Comparable<Product>, JSONSerializable {
     /**
      * Simple constructor
      * @param id is id of product
@@ -169,6 +171,23 @@ public class Product implements Comparable<Product> {
         if (this.id < product.id)
             return -1;
         return 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void toJSON(PrintWriter writer) {
+        writer.print('{');
+        writer.printf("\"id\":%d,", this.id);
+        writer.printf("\"brand\":\"%s\",", this.brand);
+        writer.printf("\"country\":\"%s\",", this.madeIn);
+        writer.printf("\"model\":\"%s\",", model);
+        writer.printf("\"price\":%d,", this.price);
+        writer.printf("\"screen size\":%f,", this.screenSize);
+        writer.printf("\"type\":\"%s\",", this.type);
+        writer.printf("\"status\":\"%s\"", this.status);
+        writer.print('}');
     }
 
     private final int id, price;

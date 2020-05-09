@@ -33,10 +33,16 @@ public interface WalkingInterface {
      * Is none by default.
      * @param fileName is the name of the file to be created for output
      */
-    void setOutput(String fileName);
+    void setOutputStatistics(String fileName);
+
+    /**
+     * Specify a file name to which we want to output products. Products are in JSON format.
+     * @param filename is the name of the file to output to
+     */
+    void setOutputProductsFile(String filename);
 
     /**
      * Output result of the random walk
      */
-    void outputResult();
+    void outputStatistics();
 }

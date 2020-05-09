@@ -12,6 +12,6 @@ public class Main {
             return;
         rw.startWalking();
         rw.waitForWalkEnd();
-        rw.outputResult();
+        rw.outputStatistics();
     }
 }

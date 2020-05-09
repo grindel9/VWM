@@ -34,13 +34,14 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
         int requestLimit = 1;
         boolean randomOrdering = false;
         double reportFrequency = 1;
-        double C = 3;
+        double C = 0;
         Integer wantedSample = null;
         String outputFileName = null;
         String dbUrl = null;
         String dbName = null;
         String username = null;
         String password = null;
+        String outputForProducts = null;
 
         for (Map.Entry<String, String> entry : parsedArguments.entrySet()) {
             switch (entry.getKey()) {
@@ -59,7 +60,7 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
                 case "--report-frequency":
                     reportFrequency = Double.parseDouble(entry.getValue());
                     break;
-                case "--output":
+                case "--output-stats":
                     outputFileName = entry.getValue();
                     break;
                 case "--db-url":
@@ -73,6 +74,9 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
                     break;
                 case "--password":
                     password = entry.getValue();
+                    break;
+                case "--get-products":
+                    outputForProducts = entry.getValue();
                     break;
                 case "--ordering":
                     if (entry.getValue().equals("fixed"))
@@ -102,7 +106,9 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
         if (wantedSample != null)
             rw.setWantedSample(wantedSample);
         if (outputFileName != null)
-            rw.setOutput(outputFileName);
+            rw.setOutputStatistics(outputFileName);
+        if (outputForProducts != null)
+            rw.setOutputProductsFile(outputForProducts);
 
         return rw;
     }
@@ -235,8 +241,16 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
      * {@inheritDoc}
      */
     @Override
-    public void setOutput(String fileName) {
-        this.outputFileName = fileName;
+    public void setOutputStatistics(String fileName) {
+        this.outputStatisticsFile = fileName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setOutputProductsFile(String filename) {
+        this.outputProductsFile = filename;
     }
 
     /**
@@ -384,7 +398,7 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
      * Convenience wrapper to check whether output file was set.
      * @return true if output file name was set
      */
-    private boolean wasOutputSet(){ return this.outputFileName != null; }
+    private boolean wasOutputStatisticsSet(){ return this.outputStatisticsFile != null; }
 
     /**
      * Getter for current acquired amount.
@@ -398,7 +412,7 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
      * {@inheritDoc}
      */
     @Override
-    public void outputResult() {
+    public void outputStatistics() {
         if (isWorking) {
             System.out.println("Working has not ended yet, can't output result!");
             return;
@@ -408,9 +422,26 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
         System.out.printf("Average depth: %f\n", this.averageDepthCounter.getAverage());
         System.out.println("Unaccepted: " + this.unAccepted);
 
-        if (wasOutputSet()) {
+        if (wasOutputStatisticsSet()) {
             try {
-                toJSON(new PrintWriter(new File(this.outputFileName)));
+                toJSON(new PrintWriter(new File(this.outputStatisticsFile)));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        if (outputProductsFile != null) {
+            try {
+                PrintWriter p = new PrintWriter(new File(this.outputProductsFile));
+                p.print("{\"products\":[");
+                int i = 0;
+                for (Product product : this.workCycle.acquiredProducts()) {
+                    if (i != 0)
+                        p.println(',');
+                    product.toJSON(p);
+                    i += 1;
+                }
+                p.print("]}");
+                p.flush();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -462,6 +493,6 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
     private final AttributeOrderer attributeOrderer;
     private final DatabaseAccessor database;
     private final int requestLimit;
-    private String outputFileName;
+    private String outputStatisticsFile, outputProductsFile;
     private long unAccepted = 0;
 }

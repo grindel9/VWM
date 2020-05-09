@@ -12,13 +12,14 @@ public class ArgumentParser {
                 "   [--wanted-sample value]\n" +
                 "   [--set-c value]\n" +
                 "   [--report-frequency value]\n" +
-                "   [--output file_name]\n" +
+                "   [--output-stats file_name]\n" +
                 "   [--ordering fixed/random]\n" +
+                "   [--get-products file_name]" +
                 "------------------------\n" +
                 "Defaults: timeout: 30\n" +
                 "          request limit: 1\n" +
                 "          wanted sample: None\n" +
-                "          C: 3\n" +
+                "          C: 0\n" +
                 "          report frequency: 1\n" +
                 "          output: None\n" +
                 "          ordering: fixed\n" +
@@ -36,8 +37,9 @@ public class ArgumentParser {
                 "--wanted-sample",
                 "--set-c",
                 "--report-frequency",
-                "--output",
-                "--ordering")
+                "--output-stats",
+                "--ordering",
+                "--get-products")
         );
 
         Map<String, String> returnValues = new HashMap<>();
