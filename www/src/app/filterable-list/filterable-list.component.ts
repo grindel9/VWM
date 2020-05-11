@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GridDataResult, DataStateChangeEvent} from '@progress/kendo-angular-grid';
-import { PRODUCTS } from '../data/products';
 import { State , process } from '@progress/kendo-data-query';
+import { FilterableListService } from './filterable-list.service';
+import { Brand, Country } from '../model/api/dropdown'
+import { Product } from '../model/product';
 
-const distinctBrand = data => data
-    .filter((x, idx, xs) => xs.findIndex(y => y.brand === x.brand) === idx);
-
-const distinctMadeIn = data => data
-    .filter((x, idx, xs)=> xs.findIndex(y => y.madeIn === x.madeIn) === idx);
 
 @Component({
   selector: 'app-filterable-list',
@@ -24,8 +21,7 @@ export class FilterableListComponent implements OnInit {
   // filter properties
 
   public item:Filtermodel = {
-    idMin: null,
-    idMax: null,
+    id: null,
     brand: null,
     madeIn: null,
     model: null,
@@ -37,20 +33,39 @@ export class FilterableListComponent implements OnInit {
     status: { s:null}
   }
 
-  public distinctBrand: any[] = distinctBrand(PRODUCTS);
-  public distinctMadeIn: any[] = distinctMadeIn(PRODUCTS);
+  // samodoplnujici se policka
+  public brand: Array<Brand> = [];
+  public country: Array<Country> = [];
+  public model: Array<string> = [];
+  public products: Array<Product> = [];
 
-  public gridData: GridDataResult = process(PRODUCTS, this.state);
+  // public gridData: GridDataResult = process(PRODUCTS, this.state);
 
-  constructor() { }
+  constructor(private service: FilterableListService) { }
 
   ngOnInit(): void {
-    console.log(distinctBrand(PRODUCTS));
+    this.service.getBrands().subscribe(
+      (data) => this.brand = data
+    );  
+
+    this.service.getCountries().subscribe(
+      (data) => this.country = data
+    );  
+
+    this.service.getModels().subscribe(
+      (data) => this.model = data
+    );  
+
+    this.service.getProducts().subscribe(
+      (data) => this.products = data
+    );  
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
-    this.gridData = process(PRODUCTS, this.state);
+    this.service.getProducts().subscribe(
+      (data) => this.products = data
+    );  
   }
 
   addToCart() {
@@ -58,17 +73,26 @@ export class FilterableListComponent implements OnInit {
   }
 
   clearFilter() {
-    window.alert('Your product has been added to the cart!');
+    this.item.id = null;
+    this.item.brand= null,
+    this.item.madeIn= null,
+    this.item.model= null,
+    this.item.screenSizeMin= null,
+    this.item.screenSizeMax= null,
+    this.item.priceMin= null,
+    this.item.priceMax= null,
+    this.item.type= { t:null},
+    this.item.status= { s:null}
    }
 
   filter() {
+    console.log("request:");
     console.log(this.item);
   }
 }
 
 export interface IFiltermodel{
-  idMin: number,
-  idMax: number,
+  id: number,
   brand: any,
   madeIn: any,
   model: string,
@@ -81,8 +105,7 @@ export interface IFiltermodel{
 }
 
 export class Filtermodel implements IFiltermodel{
-  idMin: number;
-  idMax: number;
+  id: number;
   brand: any;
   madeIn: any;
   model: string;

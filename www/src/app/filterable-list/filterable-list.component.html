@@ -4,49 +4,52 @@
 
 <br />
 
-<div>
+<!-- <div>
     <h3>Id</h3>
     <label>min: 
     <kendo-numerictextbox
+        [min]="0"
         [(ngModel)]="item.idMin"> 
       </kendo-numerictextbox>
     </label>
     <label>max: 
       <kendo-numerictextbox
+       [min]="0"
        [(ngModel)]="item.idMax"> 
         </kendo-numerictextbox>
     </label>
-</div>
+</div> -->
 
 <div >
     <h3>Brand</h3>
-    <kendo-dropdownlist [data]="distinctBrand" textField="brand" valueField="brand" >
-    </kendo-dropdownlist>
+    <kendo-multiselect [valuePrimitive]="true" [data]="brand" textField="name" valueField="id" [(ngModel)]="item.brand">
+    </kendo-multiselect >
     <br />
 </div> 
 
 <div >
     <h3>Made in</h3>
-    <kendo-multiselect  [data]="distinctMadeIn" textField="madeIn" valueField="madeIn" [(ngModel)]="item.madeIn">
+    <kendo-multiselect  [valuePrimitive]="true" [data]="country" textField="name" valueField="id" [(ngModel)]="item.madeIn">
     </kendo-multiselect >
     <br />
 </div>
 
 <div>
   <h3>Model</h3>
-  <input kendoTextBox  [(ngModel)]="item.model" />
+  <kendo-autocomplete [data]="model" [placeholder]="'select model'"[(ngModel)]="item.model" >
+  </kendo-autocomplete>
 </div>
 
 <div>
 <h3>Type</h3>
 <label>Laptop: 
-   <input type="radio" name="t" value="Laptop" [(ngModel)]="item.type" kendoRadioButton />
+   <input type="radio" text="Laptop" name="t" value=1 [(ngModel)]="item.type" kendoRadioButton />
   </label>
   <label>Desktop: 
-    <input type="radio" name="t" value="Desktop" [(ngModel)]="item.type" kendoRadioButton />
+    <input type="radio" text="Desktop" name="t" value=2 [(ngModel)]="item.type" kendoRadioButton />
   </label>
   <label>Notebook: 
-    <input type="radio" name="t" value="Notebook" [(ngModel)]="item.type" kendoRadioButton />
+    <input type="radio" text="Notebook" name="t" value=3 [(ngModel)]="item.type" kendoRadioButton />
   </label>
 </div>
 
@@ -54,11 +57,15 @@
   <h3>Price</h3>
   <label>min: 
   <kendo-numerictextbox
+  [format]="'c0'"
+  [min]="0"
   [(ngModel)]="item.priceMin"> 
     </kendo-numerictextbox>
   </label>
   <label>max: 
     <kendo-numerictextbox
+    [format]="'c0'"
+    [min]="0"
     [(ngModel)]="item.priceMax"> 
       </kendo-numerictextbox>
   </label>
@@ -68,11 +75,13 @@
   <h3>Screen Size</h3>
   <label>min: 
   <kendo-numerictextbox
+  [min]="0"
   [(ngModel)]="item.screenSizeMin"> 
     </kendo-numerictextbox>
   </label>
   <label>max: 
     <kendo-numerictextbox
+    [min]="0"
     [(ngModel)]="item.screenSizeMax"> 
       </kendo-numerictextbox>
   </label>
@@ -82,16 +91,16 @@
 <div>
 <h3>Status</h3>
 <label>New: 
-   <input type="radio" name="s" value="New" [(ngModel)]="item.status" kendoRadioButton />
+   <input type="radio" text="New" name="s" value=1 [(ngModel)]="item.status" kendoRadioButton />
   </label>
   <label>Refurbished: 
-    <input type="radio" name="s" value="Refurbished"  [(ngModel)]="item.status" kendoRadioButton />
+    <input type="radio" text="Refurbished" name="s" value=2  [(ngModel)]="item.status" kendoRadioButton />
   </label>
   <label>Used: 
-    <input type="radio" name="s" value="Used" [(ngModel)]="item.status" kendoRadioButton />
+    <input type="radio" text="Used" name="s" value=3 [(ngModel)]="item.status" kendoRadioButton />
   </label>
   <label>Broken: 
-    <input type="radio" name="s" value="Broken"  [(ngModel)]="item.status" kendoRadioButton />
+    <input type="radio" text="Broken" name="s" value=4  [(ngModel)]="item.status" kendoRadioButton />
   </label>
 </div>
 
@@ -111,7 +120,7 @@
 
 <kendo-panelbar-item [title]="'Computers'" [expanded]="true">
 <ng-template kendoPanelBarContent>
-<kendo-grid [data]="gridData" 
+<kendo-grid [data]="products" 
         [pageSize]="state.take"
         [skip]="state.skip"
         [sort]="state.sort"
@@ -121,6 +130,8 @@
         [filterable]="false"
         (dataStateChange)="dataStateChange($event)"
         >
+  <!-- <kendo-grid-column field="id" title="Id" >
+  </kendo-grid-column> -->
   <kendo-grid-column field="brand" title="Brand" >
   </kendo-grid-column>
   <kendo-grid-column field="model" title="Model">
@@ -129,9 +140,11 @@
   </kendo-grid-column>
   <kendo-grid-column field="type" title="Type" >
   </kendo-grid-column>
+  <kendo-grid-column field="status" title="Status" >
+  </kendo-grid-column>
   <kendo-grid-column field="screenSize" title="Screen Size" filter="numeric" >
   </kendo-grid-column>
-  <kendo-grid-column field="price" title="Price" filter="numeric" >
+  <kendo-grid-column field="price" title="Price" filter="numeric" [format]="'c0'">
   </kendo-grid-column>
   <kendo-grid-command-column title="" width="220">
     <ng-template kendoGridCellTemplate let-dataItem>

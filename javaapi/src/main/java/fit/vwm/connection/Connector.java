@@ -14,7 +14,7 @@ public class Connector {
             if (con == null || con.isClosed()){
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/market","root","hesloheslo");
+                        "jdbc:mysql://localhost:3306/market","root","");
         }
         } catch (SQLException e) {
             e.printStackTrace();
