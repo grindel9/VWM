@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GridDataResult, DataStateChangeEvent} from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, PageChangeEvent} from '@progress/kendo-angular-grid';
 import { State , process } from '@progress/kendo-data-query';
 import { FilterableListService } from './filterable-list.service';
 import { Brand, Country } from '../model/api/dropdown'
 import { Product } from '../model/product';
+import { PRODUCTS } from '../data/products';
+
 
 
 @Component({
@@ -12,11 +14,6 @@ import { Product } from '../model/product';
   styleUrls: ['./filterable-list.component.css']
 })
 export class FilterableListComponent implements OnInit {
-
-  public state: State = {
-    skip: 0,
-    take: 20,
-  };
 
   // filter properties
 
@@ -29,19 +26,25 @@ export class FilterableListComponent implements OnInit {
     screenSizeMax: null,
     priceMin: null,
     priceMax: null,
-    type: { t:null},
-    status: { s:null}
+    type: null,
+    status: null
   }
 
   // samodoplnujici se policka
   public brand: Array<Brand> = [];
   public country: Array<Country> = [];
   public model: Array<string> = [];
-  public products: Array<Product> = [];
+  public products: Product[] = PRODUCTS;
+
+  public gridView: GridDataResult;
+  public pageSize = 10;
+  public skip = 0;
 
   // public gridData: GridDataResult = process(PRODUCTS, this.state);
 
-  constructor(private service: FilterableListService) { }
+  constructor(private service: FilterableListService) { 
+    
+  }
 
   ngOnInit(): void {
     this.service.getBrands().subscribe(
@@ -56,16 +59,26 @@ export class FilterableListComponent implements OnInit {
       (data) => this.model = data
     );  
 
+    // musi to byt v pipe jinak se prvne nctou prazdny producty a az pak se vykresli hlavni grid
     this.service.getProducts().subscribe(
-      (data) => this.products = data
+      (data => {
+        this.products = data;
+        this.loadItems();
+      })
     );  
+
   }
 
-  public dataStateChange(state: DataStateChangeEvent): void {
-    this.state = state;
-    this.service.getProducts().subscribe(
-      (data) => this.products = data
-    );  
+  public pageChange(event: PageChangeEvent): void {
+    this.skip = event.skip;
+    this.loadItems();
+  }
+
+  private loadItems(): void {
+    this.gridView = {
+      data: this.products.slice(this.skip, this.skip + this.pageSize),
+      total: this.products.length
+    }
   }
 
   addToCart() {
@@ -86,8 +99,17 @@ export class FilterableListComponent implements OnInit {
    }
 
   filter() {
-    console.log("request:");
+    console.log("request filter:");
     console.log(this.item);
+    this.service.postProducts(this.item).subscribe(
+      response => {
+        console.log(response);
+        this.products = response;
+        this.loadItems();
+      },
+      err =>console.log(err)
+    )
+    
   }
 }
 

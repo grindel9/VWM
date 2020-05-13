@@ -120,15 +120,12 @@
 
 <kendo-panelbar-item [title]="'Computers'" [expanded]="true">
 <ng-template kendoPanelBarContent>
-<kendo-grid [data]="products" 
-        [pageSize]="state.take"
-        [skip]="state.skip"
-        [sort]="state.sort"
-        [filter]="state.filter"
-        [sortable]="false"
+<kendo-grid 
+        [data]="gridView" 
+        [pageSize]="pageSize"
+        [skip]="skip"
         [pageable]="true"
-        [filterable]="false"
-        (dataStateChange)="dataStateChange($event)"
+        (dataStateChange)="pageChange($event)"
         >
   <!-- <kendo-grid-column field="id" title="Id" >
   </kendo-grid-column> -->
@@ -148,7 +145,7 @@
   </kendo-grid-column>
   <kendo-grid-command-column title="" width="220">
     <ng-template kendoGridCellTemplate let-dataItem>
-        <button routerLink="/detail/{{dataItem.id}}" >Detail</button>
+        <button routerLink="/empty" >Detail</button>
         <div class="divider"></div>
         <button (click)="addToCart()">Add</button>
     </ng-template>

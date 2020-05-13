@@ -4,11 +4,9 @@ import { HttpClientModule }    from '@angular/common/http';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { ProductsListComponent } from './products-list/products-list.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { RouterModule } from '@angular/router';
 import { EmptyPageComponent } from './empty-page/empty-page.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CommonModule } from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -56,7 +54,6 @@ import {MatTreeModule} from '@angular/material/tree';
 
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
-import { DropDownBrandFilterComponent } from './filters/drop-down-brand-filter/drop-down-brand-filter.component';
 import { DropDownListModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { FilterableListComponent } from './filterable-list/filterable-list.component';
 import { LayoutModule } from '@progress/kendo-angular-layout';
@@ -66,11 +63,8 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsListComponent,
     TopBarComponent,
     EmptyPageComponent,
-    ProductDetailComponent,
-    DropDownBrandFilterComponent,
     FilterableListComponent,
   ],
   imports: [
@@ -126,11 +120,9 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'store', component: ProductsListComponent },
       { path: 'filter', component: FilterableListComponent },
       { path: 'empty', component: EmptyPageComponent },
       { path: '.', component: EmptyPageComponent },
-      { path: 'detail/:id', component: ProductDetailComponent },
     ]),
 
     GridModule,
