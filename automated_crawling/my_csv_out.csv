@@ -1,0 +1,2 @@
+Timeout|Limit|Ordering|C|Average depth|Average branching|Report frequency|Progress list|Acquired amount|Unaccepted amount
+60|5|random|3.0|11.615776|3.445293|0.2|[17, 28, 51, 87, 121, 144, 182, 197, 223, 248, 281, 310, 334, 371, 392, 414, 438, 467, 492, 527, 545, 567, 585, 616, 625, 656, 678, 700, 726, 738, 774, 799, 823, 852, 873, 898, 923, 945, 953, 972, 990, 998]|1001|72
