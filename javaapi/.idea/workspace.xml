@@ -6,26 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea2cd907-2e30-4563-8615-d7df8edce925" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../www/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../www/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filterable-list/filterable-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../www/src/app/filterable-list/filterable-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filterable-list/filterable-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../www/src/app/filterable-list/filterable-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filters/drop-down-brand-filter/drop-down-brand-filter.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filters/drop-down-brand-filter/drop-down-brand-filter.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filters/drop-down-brand-filter/drop-down-brand-filter.component.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/filters/drop-down-brand-filter/drop-down-brand-filter.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/product-detail/product-detail.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/product-detail/product-detail.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/product-detail/product-detail.component.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/product-detail/product-detail.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/products-list/products-list.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/products-list/products-list.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/products-list/products-list.component.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/products-list/products-list.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/sevice/computer-service.service.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/sevice/products-service.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../www/src/app/top-bar/top-bar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../www/src/app/top-bar/top-bar.component.html" afterDir="false" />
-    </list>
+    <list default="true" id="ea2cd907-2e30-4563-8615-d7df8edce925" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,6 +173,7 @@
       <workItem from="1589274553681" duration="15836000" />
       <workItem from="1589381393763" duration="4773000" />
       <workItem from="1589390220093" duration="2430000" />
+      <workItem from="1589395213720" duration="683000" />
     </task>
     <servers />
   </component>
