@@ -1,0 +1,11 @@
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/data/Computer.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/connection/Connector.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/master/MasterGenericServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/unquie/ComputerServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/data/GenericData.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/generic/StatusServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/generic/BrandServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/generic/ComputerTypeServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/unquie/ModelServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/servlet/generic/CountryServlet.java
+/home/vaclav/VWM/javaapi/src/main/java/fit/vwm/data/ComputerReq.java
