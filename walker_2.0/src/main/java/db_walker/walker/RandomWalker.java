@@ -432,7 +432,7 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
         if (outputProductsFile != null) {
             try {
                 PrintWriter p = new PrintWriter(new File(this.outputProductsFile));
-                p.print("{\"products\":[");
+                p.print("[");
                 int i = 0;
                 for (Product product : this.workCycle.acquiredProducts()) {
                     if (i != 0)
@@ -440,7 +440,7 @@ public final class RandomWalker implements WalkingInterface, JSONSerializable {
                     product.toJSON(p);
                     i += 1;
                 }
-                p.print("]}");
+                p.print("]");
                 p.flush();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
